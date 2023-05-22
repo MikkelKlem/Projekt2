@@ -46,7 +46,13 @@ while (true)
     case '1':
     {
       //Pinging the network
+      unsigned char oldUnits = x10.getUnits();
       x10.searchForUnits();
+      unsigned char newUnits = x10.getUnits();
+      if (oldUnits != newUnits)
+      {
+        //do something, update isConnected
+      }
       break;
     }
     case '2':
