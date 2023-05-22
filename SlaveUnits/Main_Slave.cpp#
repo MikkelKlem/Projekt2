@@ -1,0 +1,33 @@
+#include "X10Slave.h"
+#include "
+
+
+int main (){
+
+// Initiering af klassen slave, samt blinke med LED for at vise den tænder
+void setup()
+{
+  X10ProtoSlave(ALARMADDRESS);
+  PORTB = 0xFF;
+  delay(100);
+  PORTB = 0;
+}
+
+
+// Loop den står og venter i indtil interrupt kommer
+void loop()
+{
+  _delay_ms(100); 
+}
+
+
+
+
+
+
+
+
+
+
+
+
