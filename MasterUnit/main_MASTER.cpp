@@ -24,16 +24,18 @@ ISR (INT4_vect)
 int main(void)
 {
   void setup()
-{
-  Wire.setClock(50);
-  Wire.begin();
-  DDRB = 0xFF;
-}
+  {
+    Wire.setClock(50);
+    Wire.begin();
+    DDRB = 0xFF;
+  }
   unitUARTdriver UART(9600, 8);
   centralUnit centralUnit(&UART);
   mode = '0';
   centralUnit.initIO();
   sei();
+  
+  X10protoMaster x10;
   
 while (true)
 {
@@ -44,6 +46,7 @@ while (true)
     case '1':
     {
       //Pinging the network
+      x10.searchForUnits();
       break;
     }
     case '2':
