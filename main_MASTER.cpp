@@ -27,10 +27,7 @@ int main(void)
   
 while (true)
 {
-  //if ((~PINA) & 0b10000000)
-    //mode = '4';
-  //if ((PINE) & 0b00010000)
-    //mode = '4';
+  
 
   switch (mode)
   {
