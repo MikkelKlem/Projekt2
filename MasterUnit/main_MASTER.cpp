@@ -50,13 +50,14 @@ while (true)
       if (oldUnits != newUnits)
       {
         //Change in network, check what devices changed and set isConnected for devices
-        centralUnit.
+        
       }
       break;
     }
     case '2':
     {
       //Execute rutines
+      
       break;
 
     }
