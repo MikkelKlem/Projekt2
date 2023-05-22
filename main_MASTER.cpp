@@ -1,11 +1,15 @@
 #include "unitUARTdriver.h"
 #include "centralUnit.h"
+#include "X10Master.h"
+#include "moduleSettings.h
+#include <Wire.h>
 #include <stdlib.h>
 #define FCPU 16000000
 #include <util/delay.h>
 #include <avr/io.h>
 #include <avr/interrupt.h>
-
+#include "string.h"
+using namespace std;
 
 volatile char mode;
 
@@ -19,6 +23,12 @@ ISR (INT4_vect)
 
 int main(void)
 {
+  void setup()
+{
+  Wire.setClock(50);
+  Wire.begin();
+  DDRB = 0xFF;
+}
   unitUARTdriver UART(9600, 8);
   centralUnit centralUnit(&UART);
   mode = '0';
