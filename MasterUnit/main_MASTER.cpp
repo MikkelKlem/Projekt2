@@ -50,13 +50,15 @@ while (true)
       if (oldUnits != newUnits)
       {
         //Change in network, check what devices changed and set isConnected for devices
-        bool units[] ={false, false, false, false}
+        bool units[] ={false, false, false, false};
         for(int i = 0; i < 4; i++)
         {
           units[i] = (c >> (4 - i - 1)) & 1;
         }
-        centralUnit.setConfig_[3].isConnected_ = units[0]
-        centralUnit.setConfig_[3].isConnected_ = units[0]
+        centralUnit.setConfig_[3].isConnected_ = units[0];
+        centralUnit.setConfig_[3].isConnected_ = units[1];
+        centralUnit.setConfig_[3].isConnected_ = units[2];
+        centralUnit.setConfig_[3].isConnected_ = units[3];
       }
       break;
     }
