@@ -16,7 +16,7 @@ volatile char mode;
 
 ISR (INT4_vect)
 {
-  mode = '4';
+  mode = '3';
 }
 
 
@@ -39,8 +39,6 @@ int main(void)
   
 while (true)
 {
-  
-
   switch (mode)
   {
     case '1':
@@ -51,22 +49,18 @@ while (true)
       unsigned char newUnits = x10.getUnits();
       if (oldUnits != newUnits)
       {
-        //do something, update isConnected
+        //Change in network, check what devices changed and set isConnected for devices
+        centralUnit.
       }
       break;
     }
     case '2':
     {
-      //Change in network
-      break;
-    }
-    case '3':
-    {
-      //Execute rutine
+      //Execute rutines
       break;
 
     }
-    case '4':
+    case '3':
     {
       cli();
       PORTB = 0b01010101;
