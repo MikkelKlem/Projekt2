@@ -1,0 +1,149 @@
+#include "unitUARTdriver.h"
+#include "centralUnit.h"
+#include <stdlib.h>
+#define FCPU 16000000
+#include <util/delay.h>
+#include <avr/io.h>
+#include <avr/interrupt.h>
+
+volatile char mode;
+
+
+ISR (INT4_vect)
+{
+  mode = '4';
+}
+
+
+
+int main(void)
+{
+  unitUARTdriver UART(9600, 8);
+  centralUnit centralUnit(&UART);
+  mode = '0';
+  centralUnit.initIO();
+  sei();
+  
+while (true)
+{
+  //if ((~PINA) & 0b10000000)
+    //mode = '4';
+  //if ((PINE) & 0b00010000)
+    //mode = '4';
+
+  switch (mode)
+  {
+    case '1':
+    {
+      //Pinging the network
+      break;
+    }
+    case '2':
+    {
+      //Change in network
+      break;
+    }
+    case '3':
+    {
+      //Execute rutine
+      break;
+
+    }
+    case '4':
+    {
+      cli();
+      PORTB = 0b01010101;
+      
+      centralUnit.startConfig();
+
+
+      centralUnit.endConfig();
+      PORTB = 0b00001111;
+      while (PINE & 0b00010000)
+      {
+      }
+      PORTB = 0;
+      mode = '0';
+      _delay_ms(10);
+      sei();
+      break;
+    }
+    case '5':
+    {
+      PORTB = 0b00011111;
+
+      //cli();
+      char choice;
+      int number;
+
+      _delay_ms(500);
+
+      //PORTB = 0b11111111;
+      while (((~PINA) & 0b11111111) == 0b00000000)
+      {
+      }
+      PORTB = ~PINA;
+      choice = ~PINA;
+
+      switch (choice)
+      {
+      case 0b00000001:
+      {
+        number = 0;
+        break;
+      }
+      case 0b00000010:
+      {
+        number = 1;
+        break;
+      }
+      case 0b00000100:
+      {
+        number = 2;
+        break;
+      }
+      case 0b00001000:
+      {
+        number = 3;
+        break;
+      }
+      case 0b00010000:
+      {
+        number = 4;
+        break;
+      }
+      default:
+      {
+        PORTB = 0;
+        mode = '0';
+        sei();
+        break;
+        break;
+      }
+        
+      }
+      centralUnit.setSavedArray(number);
+      _delay_ms(2500);
+      PORTB = 0;
+      mode = '0';
+      sei();
+      break;
+    }
+    default:
+    {
+      //error in main...
+      break;
+    }
+  }
+
+  if ((~PINA) & 0b00011111)
+    mode = '5';
+
+
+
+
+
+}
+  return 0;
+}
+
