@@ -14,7 +14,6 @@ public:
     void sendInteger(int Tal);
     void sendConfig(moduleSettings* unitConfig);
     void receiveConfig(moduleSettings* unitConfig);
-    //void addConfig(moduleSettings unitConfig);
     
 private:
     const unsigned long XTAL = 16000000;
