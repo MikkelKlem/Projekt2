@@ -29,6 +29,8 @@ void centralUnit::startConfig()
 
 void centralUnit::endConfig()
 {
+
+
     UART_->receiveConfig(unitConfig_);
     
  for(size_t i = 0; i < 5; i++) {
@@ -40,16 +42,35 @@ void centralUnit::endConfig()
 
 void centralUnit::initIO()
 {
+
+    // Setting PORTB as output (IO shield LED's)
     DDRB = 0xFF;
-    //DDRA = DDRA & 0b11111110;
+
+    // Setting PORBE pin 4 as input
     DDRE = DDRE & 0b11101111;
-    //PORTE = 0b00010000;
-    DDRA = 0;
-  // Sluk alle lysdioderne
+
+    // Setting PORTA as input  (IO shield switches)
+    DDRA = 0; //Sæt alle switces som inputs
+
+    // Turn of LED's
     PORTB = 0;
-    //PORTE |= (1<<PE4);
+
+    // Enable external interrupt on pin4 (interrupt 4)
     EIMSK = EIMSK | 0b00010000;
+
+    // Interrupt on rising edge
     EICRB = 0b00000011;
+
+
+}
+
+void centralUnit::setSavedArray(int number)
+{
+
+    for (size_t i = 0; i < 4; i++)
+    {
+        unitConfig_[i] = savedArray[number][i];
+    }
 
 
 }
