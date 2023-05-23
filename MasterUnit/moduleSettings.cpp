@@ -25,6 +25,7 @@ moduleSettings::moduleSettings(bool con,
 
 moduleSettings::moduleSettings(char adress)
 {
+    //Constructor with the 4 different units
     switch (adress)
     {
         case '1':
@@ -44,7 +45,7 @@ moduleSettings::moduleSettings(char adress)
         }
         case '2':
         {
-            isConnected_ = true;
+            isConnected_ = false;
             unitName_ = "Lysenhed";
             desiredRutine_ = '1';
             strcpy(activationTime_, "00:00");
