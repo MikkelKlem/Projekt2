@@ -1,5 +1,5 @@
 #include "moduleSettings.h"
-
+#include <string.h>
 moduleSettings::moduleSettings(bool con, 
 	char* name, 
 	char desiredRutine,
