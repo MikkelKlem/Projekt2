@@ -9,15 +9,11 @@ public:
     void startConfig();
     void endConfig();
     void initIO();
+    
+    void setSavedArray(int number);
 private:
     moduleSettings savedArray[5][4];
-	moduleSettings unitConfig_[4];
+	  moduleSettings unitConfig_[4];
     unitUARTdriver* UART_;
 };
 
-
-/*for (size_t i = 0; i < 5; i++) {
-  for (size_t j = 0; j < 4; j++) {
-    moduleSettings newUnitConfig = unitConfig[j];
-    savedArray[i][j] = newUnitConfig;
-  }*/
