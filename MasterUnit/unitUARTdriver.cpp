@@ -55,7 +55,7 @@ void unitUARTdriver::sendBytes(const char* data, int numBytes) {
     }
 }
 
-void unitUARTdriver::readString(char* receivedString, int maxLength) {
+void unitUARTdriver::readString(char* receivedString, int maxLength) { //IN THIS CODE ONLY USED EARLY ON FOR DEBUGGING
   int index = 0;
 
   // Read characters until a newline ('\n') is received or the maximum length is reached
@@ -88,7 +88,7 @@ void unitUARTdriver::sendChar(char Tegn) {
     UDR0 = Tegn;
 }
 
-void unitUARTdriver::sendString(char* Streng) {
+void unitUARTdriver::sendString(char* Streng) {         //IN THIS CODE ONLY USED EARLY ON FOR DEBUGGING
     // Repeat until zero-termination
     while (*Streng != 0)
     {
@@ -99,7 +99,7 @@ void unitUARTdriver::sendString(char* Streng) {
     }
 }
 
-void unitUARTdriver::sendInteger(int Tal) {
+void unitUARTdriver::sendInteger(int Tal) {             //IN THIS CODE ONLY USED EARLY ON FOR DEBUGGING
     char array[7];
     // Convert the integer to an ASCII string (array), radix = 10 
     itoa(Tal, array, 10);
@@ -130,9 +130,6 @@ void unitUARTdriver::sendConfig(moduleSettings* unitConfig)
 
     for (size_t j = 0; j < numUnits; j++)
     {
-        
-      
-
         // Calculate sizes including null-terminating character
         char sizeArray[8] = {
             static_cast<char>(sizeof(bool) + 1),
@@ -145,10 +142,6 @@ void unitUARTdriver::sendConfig(moduleSettings* unitConfig)
             strlen(unitConfig[j].rutine4_) + 1
         };
 
-     
-
-        //_delay_us(10);
-
         // Send SOM marker
         sendBytes(&SOM, sizeof(char));
 
@@ -158,49 +151,42 @@ void unitUARTdriver::sendConfig(moduleSettings* unitConfig)
 
         // Send the size of the next element
         sendBytes(sizeArray, sizeof(sizeArray));
-        //sendBytes(&IBI, sizeof(char));
-
         
         _delay_us(10); //A small delay to make the UART more stable
 
         // Sending relevant data
-
-        
         // Sending connection status as char / converted from bool
         char connectionStatus = static_cast<char>(unitConfig[j].isConnected_);
         sendBytes(&connectionStatus, sizeof(connectionStatus) + 1);
-        //sendBytes(&IBI, sizeof(char));
-        
+      
         // Sending unitName
         sendBytes(unitConfig[j].unitName_, strlen(unitConfig[j].unitName_) + 1 );
-        //sendBytes(&IBI, sizeof(char));
-        
+      
     
 
         // Sending desired routine
         sendBytes(&unitConfig[j].desiredRutine_, sizeof(char) +1); //strlen(&unitConfig[j].desiredRutine_)
-        //sendBytes(&IBI, sizeof(char));
+        
 
         // Sending activation time
         sendBytes(unitConfig[j].activationTime_, strlen(unitConfig[j].activationTime_)+1);
-        //sendBytes(&IBI, sizeof(char));
+        
 
         //Sending rutine 1
         sendBytes(unitConfig[j].rutine1_, strlen(unitConfig[j].rutine1_)+ 1);
-        //sendBytes(&IBI, sizeof(char));
+        
 
         //Sending rutine 2
         sendBytes(unitConfig[j].rutine2_, strlen(unitConfig[j].rutine2_) + 1);
-       // sendBytes(&IBI, sizeof(char));
+       
 
         //Sending rutine 3
         sendBytes(unitConfig[j].rutine3_, strlen(unitConfig[j].rutine3_) + 1);
-       // sendBytes(&IBI, sizeof(char));
+       
 
         //Sending rutine 4
         sendBytes(unitConfig[j].rutine4_, strlen(unitConfig[j].rutine4_) + 1);
-       // sendBytes(&IBI, sizeof(char));
-      //  sendBytes(&EOM, sizeof(char));
+       
     }
 }
 
@@ -236,14 +222,18 @@ void unitUARTdriver::receiveConfig(moduleSettings* unitConfig)
             }
         }
 
-        readBytes(time, TIME_SIZE); //Reading the time as string
-        readBytes(hours, 3); //Reading the time
-        readBytes(minutes, 3); //Reading the time
+        readBytes(time, TIME_SIZE); // Reading the time as string
+        readBytes(hours, 3); // Reading the time
+        readBytes(minutes, 3); // Reading the time
 
-        readBytes(&desiredRutine, 1); //Reading the desired rutine
+
+        // Reading the desired rutine
+        readBytes(&desiredRutine, 1); 
 
         strncpy(unitConfig[j].activationTime_, time, TIME_SIZE);
 
+
+        // Updating the unitConfig
         unitConfig[j].activationHour_ = atoi(hours);
         unitConfig[j].activationMinute_ = atoi(minutes);
         unitConfig[j].desiredRutine_ = desiredRutine;
