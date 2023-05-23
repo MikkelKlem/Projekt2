@@ -1,5 +1,6 @@
 #include "centralUnit.h"
 #include <avr/io.h>
+#include <string.h>
 
 
 
