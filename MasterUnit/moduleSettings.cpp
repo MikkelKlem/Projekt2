@@ -1,5 +1,6 @@
 #include "moduleSettings.h"
 #include <string.h>
+
 moduleSettings::moduleSettings(bool con, 
 	char* name, 
 	char desiredRutine,
@@ -105,3 +106,62 @@ moduleSettings::moduleSettings(){
     rutine4_ = "rutine4";
 
 }
+
+
+    bool moduleSettings::getIsConnected() const
+    {
+        return isConnected_;
+
+    }
+	void moduleSettings::setIsConnected(bool connectionStatus)
+    {
+        isConnected_ = connectionStatus;
+    }
+	char* moduleSettings::getUnitName() const
+    {
+        return unitName_;
+    }
+	char* moduleSettings::getDesiredRutine()
+    {
+        return &desiredRutine_;
+    }
+	void moduleSettings::setDesiredRutine(char rutine)
+    {
+        desiredRutine_ = rutine;
+    }
+	int moduleSettings::getActivationHour() const
+    {
+        return activationHour_;
+    }
+	void moduleSettings::setActivationHour(int hour)
+    {
+        activationHour_ = hour;
+    }
+	int moduleSettings::getActivationMinute()
+    {
+        return activationMinute_;
+    }
+	void moduleSettings::setActivationMinute(int minute)
+    {
+        activationMinute_ = minute;
+    }
+	char* moduleSettings::getRutine1() const
+    {
+        return rutine1_;
+    }
+	char* moduleSettings::getRutine2() const
+    {
+        return rutine2_;
+    }
+	char* moduleSettings::getRutine3() const
+    {
+        return rutine3_;
+    }
+	char* moduleSettings::getRutine4() const
+    {
+        return rutine4_;
+    }
+    const char* moduleSettings::getActivationTime() const
+    {
+        return activationTime_;
+    }
