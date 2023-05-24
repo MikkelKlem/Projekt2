@@ -133,13 +133,13 @@ void unitUARTdriver::sendConfig(moduleSettings* unitConfig)
         // Calculate sizes including null-terminating character
         char sizeArray[8] = {
             static_cast<char>(sizeof(bool) + 1),
-            strlen(unitConfig[j].unitName_) + 1 ,
+            strlen(unitConfig[j].getUnitName()) + 1 ,
             sizeof(char) + 1,
             strlen(unitConfig[j].activationTime_) + 1,
-            strlen(unitConfig[j].rutine1_) + 1,
-            strlen(unitConfig[j].rutine2_) + 1,
-            strlen(unitConfig[j].rutine3_) + 1,
-            strlen(unitConfig[j].rutine4_) + 1
+            strlen(unitConfig[j].getRutine1()) + 1,
+            strlen(unitConfig[j].getRutine2()) + 1,
+            strlen(unitConfig[j].getRutine3()) + 1,
+            strlen(unitConfig[j].getRutine4()) + 1
         };
 
         // Send SOM marker
@@ -156,16 +156,16 @@ void unitUARTdriver::sendConfig(moduleSettings* unitConfig)
 
         // Sending relevant data
         // Sending connection status as char / converted from bool
-        char connectionStatus = static_cast<char>(unitConfig[j].isConnected_);
+        char connectionStatus = static_cast<char>(unitConfig[j].getIsConnected());
         sendBytes(&connectionStatus, sizeof(connectionStatus) + 1);
       
         // Sending unitName
-        sendBytes(unitConfig[j].unitName_, strlen(unitConfig[j].unitName_) + 1 );
+        sendBytes(unitConfig[j].getUnitName(), strlen(unitConfig[j].getUnitName()) + 1 );
       
     
 
         // Sending desired routine
-        sendBytes(&unitConfig[j].desiredRutine_, sizeof(char) +1); //strlen(&unitConfig[j].desiredRutine_)
+        sendBytes(unitConfig[j].getDesiredRutine(), sizeof(char) +1); //strlen(&unitConfig[j].desiredRutine_)
         
 
         // Sending activation time
@@ -173,19 +173,19 @@ void unitUARTdriver::sendConfig(moduleSettings* unitConfig)
         
 
         //Sending rutine 1
-        sendBytes(unitConfig[j].rutine1_, strlen(unitConfig[j].rutine1_)+ 1);
+        sendBytes(unitConfig[j].getRutine1(), strlen(unitConfig[j].getRutine1())+ 1);
         
 
         //Sending rutine 2
-        sendBytes(unitConfig[j].rutine2_, strlen(unitConfig[j].rutine2_) + 1);
+        sendBytes(unitConfig[j].getRutine2(), strlen(unitConfig[j].getRutine2()) + 1);
        
 
         //Sending rutine 3
-        sendBytes(unitConfig[j].rutine3_, strlen(unitConfig[j].rutine3_) + 1);
+        sendBytes(unitConfig[j].getRutine3(), strlen(unitConfig[j].getRutine3()) + 1);
        
 
         //Sending rutine 4
-        sendBytes(unitConfig[j].rutine4_, strlen(unitConfig[j].rutine4_) + 1);
+        sendBytes(unitConfig[j].getRutine4(), strlen(unitConfig[j].getRutine4()) + 1);
        
     }
 }
@@ -231,13 +231,13 @@ void unitUARTdriver::receiveConfig(moduleSettings* unitConfig)
         readBytes(&desiredRutine, 1); 
 
         strncpy(unitConfig[j].activationTime_, time, TIME_SIZE);
+        //strncpy(unitConfig[j].getActivationTime(), time, TIME_SIZE);
 
 
         // Updating the unitConfig
-        unitConfig[j].activationHour_ = atoi(hours);
-        unitConfig[j].activationMinute_ = atoi(minutes);
-        unitConfig[j].desiredRutine_ = desiredRutine;
-
+        unitConfig[j].setActivationHour(atoi(hours));
+        unitConfig[j].setActivationMinute(atoi(minutes));
+        unitConfig[j].setDesiredRutine(desiredRutine);
     }
 
 
