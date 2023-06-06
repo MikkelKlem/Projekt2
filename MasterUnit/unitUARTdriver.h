@@ -17,5 +17,4 @@ public:
     
 private:
     const unsigned long XTAL = 16000000;
-   
 };
