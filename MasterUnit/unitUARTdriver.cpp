@@ -239,6 +239,4 @@ void unitUARTdriver::receiveConfig(moduleSettings* unitConfig)
         unitConfig[j].setActivationMinute(atoi(minutes));
         unitConfig[j].setDesiredRutine(desiredRutine);
     }
-
-
 }
