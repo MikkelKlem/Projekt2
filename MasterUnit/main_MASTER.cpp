@@ -23,12 +23,6 @@ ISR (INT4_vect)
 
 int main(void)
 {
-  void setup()
-  {
-    Wire.setClock(50);
-    Wire.begin();
-    DDRB = 0xFF;
-  }
   unitUARTdriver UART(9600, 8);
   centralUnit centralUnit(&UART);
   mode = '0';
