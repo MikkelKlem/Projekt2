@@ -1,8 +1,9 @@
 #include "centralUnit.h"
 #include <avr/io.h>
 #include <string.h>
-
-
+#include <avr/interrupt.h>
+#define FCPU 16000000
+#include <util/delay.h>
 
 centralUnit::centralUnit(unitUARTdriver* UART ) : unitConfig_{moduleSettings('1'),moduleSettings('2'),moduleSettings('3'),moduleSettings('4')}
 {
@@ -30,13 +31,16 @@ void centralUnit::startConfig()
 
 void centralUnit::endConfig()
 {
-
-
     UART_->receiveConfig(unitConfig_);
     
  for(size_t i = 0; i < 5; i++) {
         UART_->receiveConfig(savedArray[i]); //Revciving savedArray;
     }
+    PORTB = 0b00001111;
+    while (PINE & 0b00010000) //Waiting for DE-2 board to disconnect
+      {
+      }
+      PORTB = 0;
 }
 
 
@@ -74,4 +78,67 @@ void centralUnit::setSavedArray(int number)
     }
 
 
+}
+
+void centralUnit::quickRutinePressed()
+{
+    PORTB = 0b00011111;
+    _delay_ms(500);
+    while (((~PINA) & 0b11111111) == 0b00000000)
+      {
+      }
+    chooseRutine();
+      
+}
+
+void centralUnit::chooseRutine()
+{
+
+    char choice;
+    int number = 10;
+
+    PORTB = ~PINA;
+    choice = ~PINA; //input from the switches
+
+    switch (choice)
+      {
+      case 0b00000001:
+      {
+        number = 0;
+        break;
+      }
+      case 0b00000010:
+      {
+        number = 1;
+        break;
+      }
+      case 0b00000100:
+      {
+        number = 2;
+        break;
+      }
+      case 0b00001000:
+      {
+        number = 3;
+        break;
+      }
+      case 0b00010000:
+      {
+        number = 4;
+        break;
+      }
+      default:  //if anything else i pressed, quit quickRutine
+      {
+        PORTB = 0;
+  
+        break;
+      } 
+      }
+      if (number != 10 )
+      {
+        setSavedArray(number);
+        _delay_ms(2500);
+        PORTB = 0;
+ 
+      }
 }
