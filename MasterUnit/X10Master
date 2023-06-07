@@ -74,7 +74,7 @@ void X10protoMaster::sendChar(unsigned char Char, int address)
     errorcheck = Wire.endTransmission();    // stop transmitting, check for ack
     if (errorcheck != 0)
     {
-      //rutinefailed()
+      //rutinefailed();
     }
 }
 
@@ -99,6 +99,8 @@ void X10protoMaster::searchForUnits() {
     blinders_ = attributes[1];
     coffee_ = attributes[2];
     lights_ = attributes[3];
+    
+    //pingFinished();
 }
 
 
