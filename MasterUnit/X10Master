@@ -70,7 +70,12 @@ void X10protoMaster::sendChar(unsigned char Char, int address)
     Wire.beginTransmission(address);
     Wire.write(b1);             // sends one char  
     Wire.write(b2);             // sends one char
-    Wire.endTransmission();    // stop transmitting
+    int errorcheck = 0;
+    errorcheck = Wire.endTransmission();    // stop transmitting, check for ack
+    if (errorcheck != 0)
+    {
+      //rutinefailed()
+    }
 }
 
 void X10protoMaster::searchForUnits() {
