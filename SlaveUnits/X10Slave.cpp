@@ -82,9 +82,9 @@ void receiveEvent(int howMany) // Interrupt der kører når slaven modtager data
 X10ProtoSlave::X10ProtoSlave(int slaveDevice) // Constructor med setup, modtager slavens addresse
 {
   Wire.begin(slaveDevice);             // join i2c bus with address
-  Wire.onReceive(receiveEvent);
-  DDRB = 0xFF;
-  isconnected_ = false;
+  Wire.onReceive(receiveEvent);        // Interrupt for when receiving data
+  DDRB = 0xFF;                         // Opens the LED's
+  isconnected_ = false;                
 }
 
 char X10ProtoSlave::readChar() // Funktion der kan læse på slaven
