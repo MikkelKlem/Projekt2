@@ -72,7 +72,11 @@ void X10protoMaster::sendChar(unsigned char Char, int address)
     Wire.write(b2);             // sends one char
     int errorcheck = 0;
     errorcheck = Wire.endTransmission();    // stop transmitting, check for ack
-    if (errorcheck != 0)
+    if (errorcheck == 0)
+    {
+      //rutineSuccesfull();
+    }
+    else
     {
       //rutinefailed();
     }
