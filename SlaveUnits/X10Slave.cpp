@@ -74,6 +74,8 @@ void receiveEvent(int howMany) // Interrupt der kører når slaven modtager data
 
       PORTB = readchar;
       readData = readchar;
+        
+      connected_ = true;
   }
 }
 
