@@ -81,7 +81,6 @@ void receiveEvent(int howMany) // Interrupt der kører når slaven modtager data
 
 X10ProtoSlave::X10ProtoSlave(int slaveDevice) // Constructor med setup, modtager slavens addresse
 {
-  Wire.setClock(50);            // Sætter clock frekvensen
   Wire.begin(slaveDevice);             // join i2c bus with address
   Wire.onReceive(receiveEvent);
   DDRB = 0xFF;
