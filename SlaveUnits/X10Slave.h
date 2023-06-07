@@ -17,8 +17,6 @@ public:
     X10ProtoSlave(int slaveDevice = ALARMADDRESS);
     void sendChar(char Char);
 private:
-    // Tilføj eventuelle private medlemmer her
-    int address_;
     
 };
 
