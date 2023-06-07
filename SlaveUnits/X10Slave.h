@@ -19,7 +19,6 @@ public:
 private:
     // Tilføj eventuelle private medlemmer her
     int address_;
-    bool connected_;
     
 };
 
