@@ -4,6 +4,7 @@
 #include "Arduino.h"
 
 char readData;
+bool isconnected_;
 
 unsigned short int charsToUnsignedShort(unsigned char highByte, unsigned char lowByte) // Laver chars om til unsigned short int
 {
@@ -75,7 +76,7 @@ void receiveEvent(int howMany) // Interrupt der kører når slaven modtager data
       PORTB = readchar;
       readData = readchar;
         
-      connected_ = true;
+      isconnected_ = true;
   }
 }
 
