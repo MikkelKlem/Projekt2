@@ -68,7 +68,6 @@ void receiveEvent(int howMany) // Interrupt der kører når slaven modtager data
       b1 = Wire.read();
       
       b2 = Wire.read();
-      // PORTB = b2;
       unsigned short int samlet = charsToUnsignedShort(b1,b2);
      
       readchar = manchesterDecode(samlet);
