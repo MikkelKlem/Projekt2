@@ -85,7 +85,7 @@ X10ProtoSlave::X10ProtoSlave(int slaveDevice) // Constructor med setup, modtager
   Wire.begin(slaveDevice);             // join i2c bus with address
   Wire.onReceive(receiveEvent);
   DDRB = 0xFF;
-  
+  connected_ = false;
 }
 
 char X10ProtoSlave::readChar() // Funktion der kan læse på slaven
